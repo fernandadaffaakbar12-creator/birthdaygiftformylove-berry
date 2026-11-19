@@ -3,7 +3,7 @@
 // ==========================================
 (function () {
     const PARTICLE_COUNT = 80;
-    const LOVE_TEXTS = ['I love you', 'i love u', 'love', 'ily', '♡', 'luv u', 'sayang', 'cinta'];
+    const LOVE_TEXTS = ['I love you', 'berry', 'berry', 'berry', '♡', 'berry', 'berry', 'berry'];
 
     // Parametric heart shape formula
     function heartX(t) {
@@ -175,7 +175,7 @@
         const pinPopupClose = document.getElementById('pin-popup-close');
 
         // DEFAULT PIN: Silakan ubah angka ini jika ingin PIN lain
-        const SECRET_PIN = "1903";
+        const SECRET_PIN = "0411";
 
         let pinAttempt = 0;
         let popupTimeout = null;
@@ -393,14 +393,23 @@ document.addEventListener("DOMContentLoaded", function () {
                     modalImg.style.display = 'none'; // Sembunyikan foto
                     modalIframe.style.display = 'block'; // Tampilkan alat musik/video
 
-                    const embedUrl = this.getAttribute('data-embed');
+                    let embedUrl = this.getAttribute('data-embed');
+                    const isYtShort = this.getAttribute('data-type') === 'yt-short' || embedUrl.includes('youtube.com/shorts/');
+
+                    // Konversi link youtube.com/shorts/ID menjadi youtube.com/embed/ID agar bisa diputar di dalam iframe
+                    if (embedUrl.includes('youtube.com/shorts/')) {
+                        embedUrl = embedUrl.replace('youtube.com/shorts/', 'www.youtube.com/embed/').replace('https://www.www.', 'https://www.');
+                    }
+
                     modalIframe.src = embedUrl; // Masukkan link
 
                     // Hapus class lama
-                    modalIframe.classList.remove('iframe-spotify', 'iframe-youtube', 'iframe-facebook');
+                    modalIframe.classList.remove('iframe-spotify', 'iframe-youtube', 'iframe-youtube-short', 'iframe-facebook');
 
-                    // Deteksi platform untuk penyesuaian rasio (16:9 untuk YouTube, Kotak untuk Spotify, 9:16 untuk Facebook)
-                    if (embedUrl.includes('youtube.com') || embedUrl.includes('youtu.be')) {
+                    // Deteksi platform untuk penyesuaian rasio (9:16 untuk YT Shorts/Facebook, 16:9 untuk YouTube biasa, Kotak untuk Spotify)
+                    if (isYtShort) {
+                        modalIframe.classList.add('iframe-youtube-short');
+                    } else if (embedUrl.includes('youtube.com') || embedUrl.includes('youtu.be')) {
                         modalIframe.classList.add('iframe-youtube');
                     } else if (embedUrl.includes('spotify.com')) {
                         modalIframe.classList.add('iframe-spotify');
@@ -430,7 +439,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 // D. JIKA YANG DIKLIK ADALAH GALERI CINTA
                 else {
                     modalImg.src = this.src;
-                    modalImg.style.aspectRatio = "9 / 16";
+                    modalImg.style.width = "88vw";
+                    modalImg.style.maxWidth = "420px";
+                    modalImg.style.aspectRatio = "3 / 4";
+                    modalImg.style.objectFit = "cover";
                 }
 
                 modal.classList.add('show-modal');
@@ -586,8 +598,124 @@ function ketikTeks(elemen, teks) {
 }
 
 // ==========================================
-// 4. FUNGSI TOGGLE PLAY/PAUSE MUSIK (SPOTIFY STYLE)
+// 4. FUNGSI PLAYLIST & KONTROL MUSIK (SPOTIFY STYLE)
 // ==========================================
+const PLAYLIST = [
+    {
+        title: "About You",
+        artist: "The 1975",
+        src: "audio/About-You.mp3",
+        cover: "img/so.jpeg"
+    },
+    {
+        title: "Lesung Pipi",
+        artist: "Raim Laode",
+        src: "audio/Lesung Pipi - Raim Laode (Lyrics).mp3",
+        cover: "img/so.jpeg"
+    },
+    {
+        title: "Penjaga Hati",
+        artist: "Nadhif Basalamah",
+        src: "audio/Nadhif Basalamah - penjaga hati Lirik.mp3",
+        cover: "img/so.jpeg"
+    }
+];
+
+let currentSongIndex = 0;
+
+function renderPlaylistUI() {
+    const playlistContainer = document.getElementById('music-playlist');
+    if (!playlistContainer) return;
+
+    playlistContainer.innerHTML = '';
+    PLAYLIST.forEach((song, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'playlist-item' + (idx === currentSongIndex ? ' active' : '');
+        btn.title = song.title + ' - ' + song.artist;
+
+        const iconSpan = document.createElement('span');
+        iconSpan.className = 'playlist-item-icon';
+        iconSpan.textContent = idx === currentSongIndex ? '🎵' : (idx + 1) + '.';
+
+        const titleSpan = document.createElement('span');
+        titleSpan.className = 'playlist-item-title';
+        titleSpan.textContent = song.title;
+
+        btn.appendChild(iconSpan);
+        btn.appendChild(titleSpan);
+
+        btn.addEventListener('click', () => {
+            pilihLagu(idx);
+        });
+
+        playlistContainer.appendChild(btn);
+    });
+}
+
+function muatLagu(index, autoPlay = false) {
+    const bgMusic = document.getElementById('bg-music');
+    const songTitleEl = document.getElementById('song-title') || document.querySelector('.song-title');
+    const artistNameEl = document.getElementById('artist-name') || document.querySelector('.artist-name');
+    const albumCoverEl = document.getElementById('album-cover') || document.querySelector('.album-cover');
+
+    currentSongIndex = ((index % PLAYLIST.length) + PLAYLIST.length) % PLAYLIST.length;
+    const song = PLAYLIST[currentSongIndex];
+
+    if (songTitleEl) {
+        songTitleEl.textContent = song.title;
+        // Restart animasi marquee agar judul baru berjalan dari awal
+        songTitleEl.style.animation = 'none';
+        void songTitleEl.offsetWidth;
+        songTitleEl.style.animation = '';
+    }
+    if (artistNameEl) {
+        artistNameEl.textContent = song.artist;
+    }
+    if (albumCoverEl && song.cover) {
+        albumCoverEl.src = song.cover;
+    }
+
+    renderPlaylistUI();
+
+    if (!bgMusic) return;
+
+    bgMusic.src = encodeURI(song.src);
+    bgMusic.load();
+
+    if (autoPlay) {
+        if (typeof muteSemuaVideo === 'function') {
+            muteSemuaVideo(false);
+        }
+        bgMusic.play().then(() => {
+            if (typeof updateMusicPopupIcon === 'function') {
+                updateMusicPopupIcon(true);
+            }
+        }).catch(err => {
+            console.log("Gagal memutar lagu:", err);
+        });
+    }
+}
+
+function pilihLagu(index) {
+    const bgMusic = document.getElementById('bg-music');
+    if (index === currentSongIndex && bgMusic) {
+        if (bgMusic.paused) {
+            toggleMusic();
+        }
+        return;
+    }
+    muatLagu(index, true);
+}
+
+function nextMusic() {
+    muatLagu(currentSongIndex + 1, true);
+}
+
+function prevMusic() {
+    muatLagu(currentSongIndex - 1, true);
+}
+
 function toggleMusic() {
     const bgMusic = document.getElementById('bg-music');
     const iconPlay = document.getElementById('icon-play');
@@ -601,17 +729,41 @@ function toggleMusic() {
             muteSemuaVideo(false);
         }
         bgMusic.play().catch(console.error);
-        iconPlay.style.display = 'none';
-        iconPause.style.display = 'block';
+        if (iconPlay) iconPlay.style.display = 'none';
+        if (iconPause) iconPause.style.display = 'block';
     } else {
         if (typeof resetBgMusicPausedByVideo === 'function') {
             resetBgMusicPausedByVideo();
         }
         bgMusic.pause();
-        iconPlay.style.display = 'block';
-        iconPause.style.display = 'none';
+        if (iconPlay) iconPlay.style.display = 'block';
+        if (iconPause) iconPause.style.display = 'none';
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    muatLagu(0, false);
+
+    const bgMusic = document.getElementById('bg-music');
+    if (bgMusic) {
+        // Otomatis lanjut ke lagu berikutnya saat lagu selesai
+        bgMusic.addEventListener('ended', () => {
+            muatLagu(currentSongIndex + 1, true);
+        });
+
+        bgMusic.addEventListener('play', () => {
+            if (typeof updateMusicPopupIcon === 'function') {
+                updateMusicPopupIcon(true);
+            }
+        });
+
+        bgMusic.addEventListener('pause', () => {
+            if (typeof updateMusicPopupIcon === 'function') {
+                updateMusicPopupIcon(false);
+            }
+        });
+    }
+});
 
 // ==========================================
 // 5. FUNGSI MENYEMBUNYIKAN POP-UP MUSIK SAAT SCROLL
@@ -778,8 +930,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let drawMoveCount = 0;
 
         setTimeout(() => {
-            canvas.width = 220;
-            canvas.height = Math.round(220 * 16 / 9);
+            const cardWidth = Math.round(canvas.parentElement.clientWidth) || 285;
+            canvas.width = cardWidth;
+            canvas.height = Math.round(cardWidth * 4 / 3);
 
             ctx.fillStyle = '#0a0a0a';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -1336,7 +1489,7 @@ function putarKeduaVideoBersamaan() {
             // Jika browser menahan autoplay, pastikan muted lalu coba lagi
             v.muted = true;
             updateVideoMuteUI(v);
-            v.play().catch(() => {});
+            v.play().catch(() => { });
         });
     });
 }
@@ -1353,10 +1506,24 @@ document.addEventListener('DOMContentLoaded', () => {
         video.muted = true;
         updateVideoMuteUI(video);
 
+        // Sesuaikan rasio aspek container secara otomatis dengan dimensi asli file video
+        const applyNativeAspectRatio = () => {
+            if (video.videoWidth && video.videoHeight) {
+                const mediaBox = video.closest('.video-media-box') || video.closest('.video-card');
+                if (mediaBox) {
+                    mediaBox.style.aspectRatio = `${video.videoWidth} / ${video.videoHeight}`;
+                }
+            }
+        };
+        if (video.readyState >= 1) {
+            applyNativeAspectRatio();
+        }
+        video.addEventListener('loadedmetadata', applyNativeAspectRatio);
+
         // Klik pada area video untuk toggle play/pause (atau melanjutkan keduanya)
         video.addEventListener('click', () => {
             if (video.paused) {
-                video.play().catch(() => {});
+                video.play().catch(() => { });
             } else {
                 video.pause();
             }
@@ -1411,7 +1578,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Unmute video yang dipilih & pastikan berputar
                 video.muted = false;
                 if (video.paused) {
-                    video.play().catch(() => {});
+                    video.play().catch(() => { });
                 }
                 updateVideoMuteUI(video);
                 sinkronBacksoundDenganVideo();
@@ -1492,5 +1659,77 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { threshold: 0.15 });
 
         videoObserver.observe(videoSection);
+    }
+});
+
+// ==========================================
+// 7. FITUR SURAT DALAM BOTOL (A LETTER FOR YOU)
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const section = document.getElementById('letter-bottle-section');
+    const trigger = document.getElementById('bottle-trigger');
+    const letterWrapper = document.getElementById('bottle-letter-wrapper');
+    const closeBtn = document.getElementById('bottle-close-btn');
+
+    if (!section || !trigger || !letterWrapper) return;
+
+    let isAnimating = false;
+    let isOpen = false;
+
+    function bukaBotolSurat() {
+        if (isAnimating || isOpen) return;
+        isAnimating = true;
+
+        // Tahap 1: Cabut tutup gabus & keluarkan gulungan surat
+        section.classList.add('is-opening');
+
+        // Tahap 2: Botol perlahan memudar setelah gulungan terangkat
+        setTimeout(() => {
+            section.classList.add('is-fading-bottle');
+        }, 780);
+
+        // Tahap 3: Tampilkan dan bentangkan kertas surat
+        setTimeout(() => {
+            section.classList.remove('is-opening', 'is-fading-bottle');
+            section.classList.add('is-open');
+            trigger.setAttribute('aria-expanded', 'true');
+            letterWrapper.setAttribute('aria-hidden', 'false');
+
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    section.classList.add('is-letter-visible');
+                    isOpen = true;
+                    isAnimating = false;
+                });
+            });
+        }, 1180);
+    }
+
+    function tutupBotolSurat() {
+        if (isAnimating || !isOpen) return;
+        isAnimating = true;
+
+        section.classList.remove('is-letter-visible');
+
+        setTimeout(() => {
+            section.classList.remove('is-open');
+            trigger.setAttribute('aria-expanded', 'false');
+            letterWrapper.setAttribute('aria-hidden', 'true');
+
+            section.classList.add('is-fading-bottle');
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    section.classList.remove('is-fading-bottle');
+                    isOpen = false;
+                    isAnimating = false;
+                });
+            });
+        }, 520);
+    }
+
+    trigger.addEventListener('click', bukaBotolSurat);
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', tutupBotolSurat);
     }
 });

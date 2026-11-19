@@ -5,35 +5,51 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Happy Birthday My Love Novanda!</title>
+    <title>Happy Birthday My Love Berry!</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Outfit:wght@300;400;600&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Lora:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;600&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
-    <audio id="bg-music" loop>
-        <source src="audio/Christina Perri - A Thousand Years _ Lirik Lagu Terjemahan.mp3" type="audio/mpeg">
+    <audio id="bg-music" preload="auto">
+        <source src="audio/About-You.mp3" type="audio/mpeg">
     </audio>
 
     <div id="music-popup" class="music-popup">
         <p class="now-playing-top">Now Playing</p>
-        <img src="img/so.jpeg" alt="Album Cover" class="album-cover">
+        <img id="album-cover" src="img/1.jpeg" alt="Album Cover" class="album-cover">
         <div class="music-info">
             <div class="marquee-wrapper">
-                <p class="song-title">A Thousand Years</p>
+                <p id="song-title" class="song-title">About You</p>
             </div>
-            <p class="artist-name">Christina Perri</p>
+            <p id="artist-name" class="artist-name">The 1975</p>
         </div>
-        <button id="play-pause-btn" class="play-pause-btn" onclick="toggleMusic()">
-            <!-- SVG Pause Icon -->
-            <svg id="icon-pause" width="24" height="24" viewBox="0 0 24 24" fill="white">
-                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-            </svg>
-            <svg id="icon-play" width="24" height="24" viewBox="0 0 24 24" fill="white" style="display: none;">
-                <path d="M8 5v14l11-7z" />
-            </svg>
-        </button>
+        <div class="music-controls">
+            <button id="prev-music-btn" class="music-nav-btn" onclick="prevMusic()" aria-label="Lagu Sebelumnya"
+                title="Lagu Sebelumnya">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                    <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
+                </svg>
+            </button>
+            <button id="play-pause-btn" class="play-pause-btn" onclick="toggleMusic()" aria-label="Play atau Pause">
+                <!-- SVG Pause Icon -->
+                <svg id="icon-pause" width="22" height="22" viewBox="0 0 24 24" fill="white">
+                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+                </svg>
+                <svg id="icon-play" width="22" height="22" viewBox="0 0 24 24" fill="white" style="display: none;">
+                    <path d="M8 5v14l11-7z" />
+                </svg>
+            </button>
+            <button id="next-music-btn" class="music-nav-btn" onclick="nextMusic()" aria-label="Lagu Selanjutnya"
+                title="Lagu Selanjutnya">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                    <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
+                </svg>
+            </button>
+        </div>
+        <div id="music-playlist" class="music-playlist"></div>
     </div>
 
     <!-- Tombol untuk memunculkan kembali pop up musik -->
@@ -57,8 +73,8 @@
     <div id="pin-screen" style="display: none;">
         <div class="pin-container glass-panel">
             <h2>Enter PIN</h2>
-            <p style="margin-bottom: 2px;">passwordnya tanggal + bulan jadian kita yaa</p>
-            <p style="margin-top: 0;">(Awas aja kalau lupa)</p>
+            <p style="margin-bottom: 2px;">passwordnya tanggal + bulan jadian kita yaa.</p>
+            <p style="margin-top: 0;">(awas aja kalau lupa)</p>
             <input type="password" id="pin-input" maxlength="4" placeholder="****" inputmode="numeric" pattern="[0-9]*">
         </div>
     </div>
@@ -86,7 +102,7 @@
             <h1 class="aesthetic-font fade-in-text">Happy Birthday,<br>My Everything</h1>
             <p class="aesthetic-font fade-in-text"
                 style="font-size: 1.3rem; color: #ffffff; margin-top: -5px; margin-bottom: 10px; letter-spacing: 2px;">-
-                Novanda -</p>
+                Berry -</p>
             <img src="img/foto-pacar.png" alt="Foto Pacar" class="birthday-photo fade-in-text">
             <p class="typing-text">Hari ini adalah hari yang paling spesial karena di hari ini, semesta membawa kamu ke
                 dunia.</p>
@@ -98,17 +114,255 @@
             <p class="scroll-hint">✨Scroll pelan-pelan ke bawah ya sayang..✨</p>
         </section>
 
-        <section class="slide glass-panel show-on-scroll">
-            <h2 class="baby-pink-text" style="font-style: italic;">A little prayer for you.</h2>
-            <p class="fade-in-text">Semoga di usiamu yang baru ini, kamu selalu dikelilingi oleh kebahagiaan, kesehatan,
-                dan cinta yang tulus. Semoga setiap doa yang diam-diam kamu panjatkan menemukan jalannya untuk menjadi
-                kenyataan, setiap usaha yang kamu perjuangkan membuahkan hasil terbaik, dan setiap langkah yang kamu
-                ambil selalu membawa kamu semakin dekat dengan mimpi-mimpimu.</p>
-            <p class="fade-in-text">Aku juga berharap, apa pun yang akan kamu hadapi ke depannya, kamu tidak pernah
-                merasa sendirian. Semoga aku selalu diberi kesempatan untuk menemani setiap prosesmu—merayakan setiap
-                kebahagiaan, menguatkanmu di saat lelah, dan tetap berjalan di sisimu, bukan hanya di hari-hari yang
-                mudah, tetapi juga di hari-hari yang penuh tantangan. Karena melihatmu bahagia akan selalu menjadi salah
-                satu hal yang paling berarti bagiku.</p>
+        <section class="slide bottle-letter-section show-on-scroll" id="letter-bottle-section">
+            <!-- Tampilan Awal: Surat dalam Botol -->
+            <div class="bottle-stage" id="bottle-stage">
+                <h2 class="bottle-heading baby-pink-text">A letter for you.</h2>
+
+                <button type="button" class="bottle-trigger" id="bottle-trigger"
+                    aria-label="Buka botol untuk membaca surat" aria-expanded="false"
+                    aria-controls="bottle-letter-wrapper">
+                    <svg class="bottle-svg" viewBox="0 0 260 310" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        role="img" aria-hidden="true">
+                        <defs>
+                            <!-- Cahaya bulan di bawah permukaan air -->
+                            <radialGradient id="moonWaterGlow" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="#ffb6c1" stop-opacity="0.22" />
+                                <stop offset="55%" stop-color="#8ab8d8" stop-opacity="0.10" />
+                                <stop offset="100%" stop-color="#05041a" stop-opacity="0" />
+                            </radialGradient>
+
+                            <!-- Gradasi kaca botol tembus pandang -->
+                            <linearGradient id="glassBodyGrad" x1="80" y1="90" x2="182" y2="265"
+                                gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#d8eef8" stop-opacity="0.26" />
+                                <stop offset="32%" stop-color="#88bcd4" stop-opacity="0.09" />
+                                <stop offset="72%" stop-color="#5d89ab" stop-opacity="0.12" />
+                                <stop offset="100%" stop-color="#f2cad6" stop-opacity="0.26" />
+                            </linearGradient>
+
+                            <!-- Gradasi ketebalan dasar kaca -->
+                            <linearGradient id="glassBaseGrad" x1="84" y1="246" x2="176" y2="268"
+                                gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#cfe8f5" stop-opacity="0.34" />
+                                <stop offset="50%" stop-color="#7fa9c7" stop-opacity="0.18" />
+                                <stop offset="100%" stop-color="#f5c6d4" stop-opacity="0.32" />
+                            </linearGradient>
+
+                            <!-- Gradasi highlight kaca kiri -->
+                            <linearGradient id="glassSpecular" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.62" />
+                                <stop offset="65%" stop-color="#ffffff" stop-opacity="0.22" />
+                                <stop offset="100%" stop-color="#ffffff" stop-opacity="0.04" />
+                            </linearGradient>
+
+                            <!-- Gradasi gabus (cork) natural -->
+                            <linearGradient id="corkGrad" x1="114" y1="68" x2="146" y2="104"
+                                gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#d3a87c" />
+                                <stop offset="48%" stop-color="#ae7d52" />
+                                <stop offset="100%" stop-color="#7d5333" />
+                            </linearGradient>
+
+                            <!-- Gradasi gulungan kertas surat -->
+                            <linearGradient id="scrollPaperGrad" x1="110" y1="150" x2="152" y2="248"
+                                gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#fcf4e4" />
+                                <stop offset="52%" stop-color="#ebd5b1" />
+                                <stop offset="100%" stop-color="#c9a87d" />
+                            </linearGradient>
+
+                            <!-- Pita pengikat surat -->
+                            <linearGradient id="ribbonGrad" x1="110" y1="196" x2="150" y2="206"
+                                gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#e59aaa" />
+                                <stop offset="50%" stop-color="#c96f84" />
+                                <stop offset="100%" stop-color="#9e4d60" />
+                            </linearGradient>
+
+                            <!-- Clip interior botol agar gulungan terlihat benar-benar di dalam kaca -->
+                            <clipPath id="bottleInteriorClip">
+                                <path
+                                    d="M118 96 L118 130 C118 145 86 155 86 176 L86 246 C86 259 98 265 130 265 C162 265 174 259 174 246 L174 176 C174 155 142 145 142 130 L142 96 Z" />
+                            </clipPath>
+                        </defs>
+
+                        <!-- Pantulan cahaya bulan & riak air tenang -->
+                        <g class="bottle-water">
+                            <ellipse cx="130" cy="272" rx="96" ry="22" fill="url(#moonWaterGlow)" />
+                            <ellipse class="water-ripple ripple-1" cx="130" cy="272" rx="54" ry="9"
+                                stroke="rgba(225, 238, 250, 0.32)" stroke-width="1.1" />
+                            <ellipse class="water-ripple ripple-2" cx="130" cy="272" rx="76" ry="13"
+                                stroke="rgba(255, 198, 212, 0.22)" stroke-width="0.9" />
+                            <ellipse class="water-ripple ripple-3" cx="130" cy="272" rx="98" ry="17"
+                                stroke="rgba(180, 212, 238, 0.14)" stroke-width="0.8" />
+                        </g>
+
+                        <!-- Partikel cahaya halus saat tutup botol terbuka -->
+                        <g class="bottle-motes" aria-hidden="true">
+                            <circle class="mote mote-1" cx="124" cy="78" r="2.2" fill="#ffe4ec" />
+                            <circle class="mote mote-2" cx="136" cy="72" r="1.7" fill="#fff5e6" />
+                            <circle class="mote mote-3" cx="130" cy="84" r="1.5" fill="#ffb6c1" />
+                            <circle class="mote mote-4" cx="118" cy="85" r="1.3" fill="#e6f2ff" />
+                            <circle class="mote mote-5" cx="142" cy="81" r="1.8" fill="#ffe0eb" />
+                        </g>
+
+                        <!-- Keseluruhan botol yang mengapung pelan -->
+                        <g class="bottle-whole">
+                            <!-- Lapisan kaca belakang -->
+                            <path
+                                d="M116 94 L116 129 C116 146 82 155 82 177 L82 248 C82 262 96 269 130 269 C164 269 178 262 178 248 L178 177 C178 155 144 146 144 129 L144 94 Z"
+                                fill="url(#glassBodyGrad)" />
+
+                            <!-- Garis air tipis di bagian bawah dalam botol -->
+                            <g clip-path="url(#bottleInteriorClip)">
+                                <path d="M84 249 Q107 244 130 248 T176 247 L176 268 L84 268 Z"
+                                    fill="url(#glassBaseGrad)" />
+                            </g>
+
+                            <!-- Gulungan Surat di dalam botol -->
+                            <g class="bottle-scroll">
+                                <g transform="rotate(-6 130 202)">
+                                    <!-- Bayangan halus gulungan -->
+                                    <ellipse cx="132" cy="251" rx="20" ry="4.5" fill="rgba(25, 16, 36, 0.32)" />
+                                    <!-- Badan kertas tergulung -->
+                                    <path
+                                        d="M112 154 L112 246 C112 250 120 253 130 253 C140 253 148 250 148 246 L148 154 Z"
+                                        fill="url(#scrollPaperGrad)" stroke="#c7a57b" stroke-width="0.9" />
+                                    <!-- Lipatan ujung kertas tergulung di sisi depan -->
+                                    <path d="M117 157 L117 248" stroke="rgba(138, 102, 68, 0.28)" stroke-width="0.9" />
+                                    <!-- Bayangan lembut tulisan di kertas -->
+                                    <line x1="122" y1="173" x2="141" y2="173" stroke="rgba(120, 86, 62, 0.22)"
+                                        stroke-width="1" stroke-linecap="round" />
+                                    <line x1="122" y1="181" x2="138" y2="181" stroke="rgba(120, 86, 62, 0.18)"
+                                        stroke-width="1" stroke-linecap="round" />
+                                    <line x1="122" y1="221" x2="140" y2="221" stroke="rgba(120, 86, 62, 0.18)"
+                                        stroke-width="1" stroke-linecap="round" />
+                                    <line x1="122" y1="229" x2="136" y2="229" stroke="rgba(120, 86, 62, 0.16)"
+                                        stroke-width="1" stroke-linecap="round" />
+                                    <!-- Ujung spiral gulungan atas -->
+                                    <ellipse cx="130" cy="154" rx="18" ry="4.8" fill="#f7e8ce" stroke="#c7a57b"
+                                        stroke-width="0.9" />
+                                    <path
+                                        d="M118 154 C118 152 123 151 130 151 C136 151 140 152.5 140 154 C140 155.3 135 156 129 156 C125 156 123 155 125 153.8"
+                                        stroke="#b48e64" stroke-width="0.9" fill="none" stroke-linecap="round" />
+                                    <!-- Pita pengikat warna dusty rose -->
+                                    <path d="M111.5 198 Q130 203.5 148.5 198 L148.5 204.5 Q130 210 111.5 204.5 Z"
+                                        fill="url(#ribbonGrad)" />
+                                    <!-- Simpul pita & ujung tali -->
+                                    <path d="M129 203 C122 208 119 214 117 219" stroke="#d58094" stroke-width="1.6"
+                                        stroke-linecap="round" />
+                                    <path d="M131 203 C137 208 140 214 142 218" stroke="#c36b80" stroke-width="1.6"
+                                        stroke-linecap="round" />
+                                    <circle cx="130" cy="203" r="3.4" fill="#c9687e" stroke="#f3c0cc"
+                                        stroke-width="0.7" />
+                                </g>
+                            </g>
+
+                            <!-- Tutup Gabus (Cork) -->
+                            <g class="bottle-cork">
+                                <path d="M116 69 L119 103 C119 106 124 108 130 108 C136 108 141 106 141 103 L144 69 Z"
+                                    fill="url(#corkGrad)" stroke="#6d472a" stroke-width="0.9" />
+                                <ellipse cx="130" cy="69" rx="14" ry="3.8" fill="#dfb78e" stroke="#8a5f3b"
+                                    stroke-width="0.8" />
+                                <!-- Tekstur pori gabus -->
+                                <circle cx="123" cy="79" r="0.9" fill="#5e3a1f" opacity="0.55" />
+                                <circle cx="135" cy="83" r="1.1" fill="#5e3a1f" opacity="0.48" />
+                                <circle cx="127" cy="90" r="0.8" fill="#5e3a1f" opacity="0.5" />
+                                <circle cx="137" cy="95" r="0.9" fill="#5e3a1f" opacity="0.45" />
+                                <circle cx="122" cy="96" r="0.7" fill="#5e3a1f" opacity="0.5" />
+                                <circle cx="132" cy="76" r="0.7" fill="#5e3a1f" opacity="0.4" />
+                            </g>
+
+                            <!-- Bibir & leher kaca depan (menutupi bagian bawah gabus secara realistis) -->
+                            <path
+                                d="M112 91 C112 88.5 119 87 130 87 C141 87 148 88.5 148 91 C148 94.5 141 96.5 130 96.5 C119 96.5 112 94.5 112 91 Z"
+                                fill="rgba(220, 240, 250, 0.26)" stroke="rgba(235, 246, 255, 0.65)"
+                                stroke-width="1.2" />
+
+                            <!-- Garis kontur kaca luar & pantulan cahaya -->
+                            <path
+                                d="M116 95 L116 129 C116 146 82 155 82 177 L82 248 C82 262 96 269 130 269 C164 269 178 262 178 248 L178 177 C178 155 144 146 144 129 L144 95"
+                                stroke="rgba(230, 245, 255, 0.52)" stroke-width="1.6" stroke-linecap="round" />
+
+                            <!-- Lengkungan dasar kaca tebal (punt) -->
+                            <path d="M90 257 Q130 247 170 257" stroke="rgba(235, 246, 255, 0.34)" stroke-width="1.2"
+                                fill="none" stroke-linecap="round" />
+
+                            <!-- Kilau kaca melengkung di bahu & sisi kiri -->
+                            <path d="M119 102 L119 127 C119 139 97 151 92 169" stroke="url(#glassSpecular)"
+                                stroke-width="3.2" stroke-linecap="round" fill="none" />
+                            <path d="M90 183 L90 242" stroke="url(#glassSpecular)" stroke-width="2.6"
+                                stroke-linecap="round" opacity="0.72" />
+                            <!-- Kilau tipis di sisi kanan -->
+                            <path d="M168 178 L168 238" stroke="rgba(255, 210, 224, 0.36)" stroke-width="1.6"
+                                stroke-linecap="round" />
+                            <path d="M141 103 L141 124" stroke="rgba(255, 255, 255, 0.25)" stroke-width="1.2"
+                                stroke-linecap="round" />
+                        </g>
+                    </svg>
+                    <span class="bottle-hint">ketuk botol untuk membuka surat</span>
+                </button>
+            </div>
+
+            <!-- Tampilan Terbuka: Kertas Surat dari Dalam Botol -->
+            <div class="bottle-letter-wrapper" id="bottle-letter-wrapper" aria-hidden="true">
+                <article class="bottle-letter-sheet">
+                    <div class="letter-paper-grain" aria-hidden="true"></div>
+                    <div class="letter-inner-frame">
+                        <!-- Segel lilin (wax seal) -->
+                        <div class="letter-wax-seal" aria-hidden="true">
+                            <svg width="46" height="46" viewBox="0 0 56 56" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <radialGradient id="waxSealGrad" cx="38%" cy="32%" r="65%">
+                                        <stop offset="0%" stop-color="#df8c9d" />
+                                        <stop offset="55%" stop-color="#b85a6f" />
+                                        <stop offset="100%" stop-color="#843849" />
+                                    </radialGradient>
+                                </defs>
+                                <path
+                                    d="M28 4 C35 3.5 41 6.5 45.5 11.5 C50.5 17 52.5 23 51.5 30 C50.5 37.5 46.5 44.5 39.5 48.5 C33 52 24.5 52.5 17.5 49 C10.5 45.5 5.5 39 4.5 31 C3.5 23 6.5 15 12.5 9.8 C17 6 22 4.3 28 4 Z"
+                                    fill="url(#waxSealGrad)" />
+                                <circle cx="28" cy="28" r="16.5" stroke="rgba(255, 232, 237, 0.35)"
+                                    stroke-width="1.2" />
+                                <path
+                                    d="M28 34.5 C28 34.5 20.5 29.8 20.5 24.6 C20.5 22.1 22.4 20.4 24.6 20.4 C26.1 20.4 27.3 21.2 28 22.4 C28.7 21.2 29.9 20.4 31.4 20.4 C33.6 20.4 35.5 22.1 35.5 24.6 C35.5 29.8 28 34.5 28 34.5 Z"
+                                    fill="rgba(255, 236, 240, 0.85)" />
+                            </svg>
+                        </div>
+
+                        <h2 class="letter-title">A letter for you.</h2>
+
+                        <div class="letter-body">
+                            <p class="letter-paragraph">surat ini eza tulis buat dua hal. buat ulang tahun muse berry,
+                                dan juga buat ulang tahun rl bebe. kebetulan eza gatau kapan ultah rl bebe, jadi
+                                sekalian eza ucapin disini ya, hehe. thank you for being born into this world. kehidupan
+                                bebe sangat berarti buat eza.</p>
+
+                            <p class="letter-paragraph">and for you in rl, eza berdoa semoga bebe sehat selalu, bahagia,
+                                dilancarkan semua urusan kamu sayang, dan apa yang sedang kamu perjuangin bisa tercapai.
+                                you deserve all the good things. princes ecilnya eza orang baik, dan eza beruntung bisa
+                                kenal kamu sayang.</p>
+
+                            <p class="letter-paragraph">terima kasih sudah ada untuk eza, sudah meluangkan waktu, dan
+                                sudah menyayangi eza dengan tulus. eza menghargai semua itu lebih dari yang bisa eza
+                                katakan. eza sayang kamu, dengan cara yang tenang dan tulus. happy birthday once again,
+                                bebe. semoga hari ini hari yang indah buat kamu sayang.</p>
+
+                            <p class="letter-paragraph">with love</p>
+
+                            <p class="letter-paragraph">from eza who is always loving you today, tomorrow, & forever</p>
+                        </div>
+
+                        <div class="letter-footer">
+                            <button type="button" class="bottle-close-btn" id="bottle-close-btn">
+                                Masukkan kembali ke botol
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
         </section>
 
         <section class="slide photo-panel show-on-scroll">
@@ -124,31 +378,31 @@
             <div class="solar-system">
                 <div class="orbit-track">
 
-                    <div class="planet-card item1" data-caption="Mie Ayam">
+                    <div class="planet-card item1" data-caption="Stawberry">
                         <img src="img/favorite-food.jpg" alt="Food">
                         <p class="planet-caption">Your favorite food</p>
                     </div>
 
-                    <div class="planet-card item2" data-caption="Stawberry Milk">
+                    <div class="planet-card item2" data-caption="Matcha Latte">
                         <img src="img/favorite-drink.jpg" alt="Drink">
                         <p class="planet-caption">Your favorite drink</p>
                     </div>
 
                     <div class="planet-card item3"
-                        data-embed="https://open.spotify.com/embed/track/3kfVlzPUsy7x1MiPHRuFr0?utm_source=generator&si=94fed18d3ce845d7"
-                        data-caption="Negoro Angin - Denny Caknan">
+                        data-embed="https://open.spotify.com/embed/track/3hEfpBHxgieRLz4t3kLNEg?utm_source=generator&si=314990aaf9834230"
+                        data-caption="About You - The 1975">
                         <img src="img/favorite-song.png" alt="Song">
                         <p class="planet-caption">Your favorite song</p>
                     </div>
 
                     <div class="planet-card item4"
-                        data-embed="https://www.youtube.com/embed/4xOwqTzSiCc?si=Gn7B7z184p8zo3WK"
-                        data-caption="Tanboy Kun">
+                        data-embed="https://www.youtube.com/embed/-e9w7F9jMCA?si=nozuhl4AhxQ1yZR7" data-type="yt-short"
+                        data-caption="Titut">
                         <img src="img/favorite-yt.jpg" alt="YouTube Video">
-                        <p class="planet-caption">Your favorite Youtube Channel</p>
+                        <p class="planet-caption">Your favorite short video</p>
                     </div>
 
-                    <div class="planet-card item5" data-caption="Ningrum">
+                    <div class="planet-card item5" data-caption="eza">
                         <img src="img/favorite-person.jpeg" alt="Person">
                         <p class="planet-caption">Your favorite person</p>
                     </div>
@@ -159,10 +413,10 @@
 
         <section class="slide photo-panel show-on-scroll">
             <h2 class="aesthetic-font" style="line-height: 0.8; margin-bottom: 35px; color: #ffb6c1;">
-                <span style="font-size: 2em; display: block;">Core Memories</span>
+                <span style="font-size: 2em; display: block;">Favorite Frames</span>
                 <span
                     style="font-size: 1.2em; display: block; opacity: 0.9; transform: translateX(40px); color: #ffffff;">of
-                    Us</span>
+                    You &amp; Us</span>
             </h2>
             <div class="gallery-scroll">
                 <div class="scratch-card">
@@ -199,74 +453,98 @@
         </section>
 
         <section class="slide photo-panel show-on-scroll" id="video-memories-section">
+            <div class="video-section-header">
+
+                <p class="video-section-caption">
+                    “In a world full of temporary things, you are my favorite forever — every laugh, every glance, and
+                    every second with you is a memory I’ll treasure endlessly.” ✨
+                </p>
+            </div>
+
             <div class="video-memories-grid">
-                <!-- Video 1 -->
-                <div class="video-card" id="video-card-1">
-                    <video id="memory-video-1" class="memory-video" src="video/1.mp4" autoplay loop muted playsinline
-                        webkit-playsinline preload="auto"></video>
-                    <div class="video-controls-overlay">
-                        <button type="button" class="video-ctrl-btn btn-mute-toggle" data-video="memory-video-1"
-                            aria-label="Unmute atau Mute Video">
-                            <!-- Icon Muted (Default) -->
-                            <svg class="icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                                <line x1="23" y1="9" x2="17" y2="15"></line>
-                                <line x1="17" y1="9" x2="23" y2="15"></line>
-                            </svg>
-                            <!-- Icon Unmuted -->
-                            <svg class="icon-unmuted" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                style="display: none;">
-                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-                            </svg>
-                        </button>
-                        <button type="button" class="video-ctrl-btn btn-fullscreen-toggle" data-video="memory-video-1"
-                            aria-label="Full Screen Video">
-                            <svg class="icon-fullscreen" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path
-                                    d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3">
-                                </path>
-                            </svg>
-                        </button>
+                <!-- Video 1 (Original Aspect Ratio 16:9 - 1024x576) -->
+                <div class="video-card video-card-landscape" id="video-card-1">
+                    <div class="video-card-header">
+                        <span class="video-card-caption">♡ Falling in love with you, over and over again</span>
+                        <span class="video-card-badge">✨ Sweet Memory</span>
+                    </div>
+                    <div class="video-media-box">
+                        <video id="memory-video-1" class="memory-video" src="video/1.mp4" autoplay loop muted
+                            playsinline webkit-playsinline preload="auto"></video>
+                        <div class="video-controls-overlay">
+                            <button type="button" class="video-ctrl-btn btn-mute-toggle" data-video="memory-video-1"
+                                aria-label="Unmute atau Mute Video">
+                                <!-- Icon Muted (Default) -->
+                                <svg class="icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                    <line x1="23" y1="9" x2="17" y2="15"></line>
+                                    <line x1="17" y1="9" x2="23" y2="15"></line>
+                                </svg>
+                                <!-- Icon Unmuted -->
+                                <svg class="icon-unmuted" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" style="display: none;">
+                                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                                </svg>
+                            </button>
+                            <button type="button" class="video-ctrl-btn btn-fullscreen-toggle"
+                                data-video="memory-video-1" aria-label="Full Screen Video">
+                                <svg class="icon-fullscreen" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Video 2 -->
-                <div class="video-card" id="video-card-2">
-                    <video id="memory-video-2" class="memory-video" src="video/2.mp4" autoplay loop muted playsinline
-                        webkit-playsinline preload="auto"></video>
-                    <div class="video-controls-overlay">
-                        <button type="button" class="video-ctrl-btn btn-mute-toggle" data-video="memory-video-2"
-                            aria-label="Unmute atau Mute Video">
-                            <!-- Icon Muted (Default) -->
-                            <svg class="icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                                <line x1="23" y1="9" x2="17" y2="15"></line>
-                                <line x1="17" y1="9" x2="23" y2="15"></line>
-                            </svg>
-                            <!-- Icon Unmuted -->
-                            <svg class="icon-unmuted" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                style="display: none;">
-                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-                            </svg>
-                        </button>
-                        <button type="button" class="video-ctrl-btn btn-fullscreen-toggle" data-video="memory-video-2"
-                            aria-label="Full Screen Video">
-                            <svg class="icon-fullscreen" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path
-                                    d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3">
-                                </path>
-                            </svg>
-                        </button>
+                <!-- Video 2 (Original Aspect Ratio 1:1 - 576x576) -->
+                <div class="video-card video-card-square" id="video-card-2">
+                    <div class="video-card-header">
+                        <span class="video-card-caption">♡ You will always be my favorite place to be</span>
+                        <span class="video-card-badge">💕 Us Forever</span>
+                    </div>
+                    <div class="video-media-box">
+                        <video id="memory-video-2" class="memory-video" src="video/2.mp4" autoplay loop muted
+                            playsinline webkit-playsinline preload="auto"></video>
+                        <div class="video-controls-overlay">
+                            <button type="button" class="video-ctrl-btn btn-mute-toggle" data-video="memory-video-2"
+                                aria-label="Unmute atau Mute Video">
+                                <!-- Icon Muted (Default) -->
+                                <svg class="icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                    <line x1="23" y1="9" x2="17" y2="15"></line>
+                                    <line x1="17" y1="9" x2="23" y2="15"></line>
+                                </svg>
+                                <!-- Icon Unmuted -->
+                                <svg class="icon-unmuted" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" style="display: none;">
+                                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                                </svg>
+                            </button>
+                            <button type="button" class="video-ctrl-btn btn-fullscreen-toggle"
+                                data-video="memory-video-2" aria-label="Full Screen Video">
+                                <svg class="icon-fullscreen" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -284,11 +562,11 @@
                 </div>
                 <div class="polaroid">
                     <img src="img/so.jpeg" alt="Foto Pribadi 3">
-                    <p class="caption">So</p>
+                    <p class="caption">My</p>
                 </div>
                 <div class="polaroid">
                     <img src="img/beautiful.jpeg" alt="Foto Pribadi 4">
-                    <p class="caption">Handsome</p>
+                    <p class="caption">Mine</p>
                 </div>
             </div>
         </section>
@@ -310,7 +588,7 @@
             <hr style="border: 0; border-top: 1px solid rgba(255,182,193,0.3); margin-bottom: 20px;">
             <p style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 5px;">Dari orang yang paling bersyukur memilikimu,
             </p>
-            <p class="sender-name aesthetic-font baby-pink-text" style="font-size: 2rem; margin-top: 5px;">Ningrum</p>
+            <p class="sender-name aesthetic-font baby-pink-text" style="font-size: 2rem; margin-top: 5px;">eza</p>
 
             <!-- Tombol Tiup Lilin -->
             <button id="btn-tiup-lilin" class="btn-tiup-lilin" onclick="bukaHalamanLilin()">🎂 Tiup Lilin</button>
@@ -325,29 +603,29 @@
                 <p id="candle-message" class="candle-message"></p>
 
                 <div class="cake-container">
-                    <!-- Lilin Angka 24 -->
-                    <div class="candles-row number-candles">
-                        <!-- Angka 2 -->
-                        <div class="candle-stick number-candle">
+                    <!-- Lilin Ulang Tahun Biasa -->
+                    <div class="candles-row">
+                        <div class="candle-stick">
                             <div class="candle-flame flame-1">
                                 <div class="flame-inner"></div>
                             </div>
-                            <div class="candle-number-body">
-                                <span class="candle-digit">2</span>
-                            </div>
+                            <div class="candle-body"></div>
                         </div>
-                        <!-- Angka 4 -->
-                        <div class="candle-stick number-candle">
+                        <div class="candle-stick">
                             <div class="candle-flame flame-2">
                                 <div class="flame-inner"></div>
                             </div>
-                            <div class="candle-number-body">
-                                <span class="candle-digit">0</span>
+                            <div class="candle-body"></div>
+                        </div>
+                        <div class="candle-stick">
+                            <div class="candle-flame flame-3">
+                                <div class="flame-inner"></div>
                             </div>
+                            <div class="candle-body"></div>
                         </div>
                     </div>
 
-                    <!-- Kue Coklat Strawberry -->
+                    <!-- Kue Pink & White -->
                     <div class="cake">
                         <div class="cake-strawberries">
                             <span>🍓</span><span>🍓</span><i class="candle-gap"></i><span>🍓</span><span>🍓</span>
@@ -361,7 +639,7 @@
                         <div class="cake-filling"></div>
                         <div class="cake-bottom"></div>
                         <div class="cake-decoration">
-                            <span>🍓</span><span>🍫</span><span>🍓</span><span>🍫</span><span>🍓</span>
+                            <span>🍓</span><span>🤍</span><span>🍓</span><span>🤍</span><span>🍓</span>
                         </div>
                         <div class="cake-plate"></div>
                     </div>
